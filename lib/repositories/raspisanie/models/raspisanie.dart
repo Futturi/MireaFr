@@ -1,0 +1,61 @@
+class RaspisanieM {
+  String? pair1;
+  String? pair2;
+  String? pair3;
+  String? pair4;
+  String? pair5;
+  String? pair6;
+  String? pair7;
+  String? aud1;
+  String? aud2;
+  String? aud3;
+  String? aud4;
+  String? aud5;
+  String? aud6;
+  String? aud7;
+  String? prep1;
+  String? prep2;
+  String? prep3;
+  String? prep4;
+  String? prep5;
+  String? prep6;
+  String? prep7;
+  String? vid1;
+  String? vid2;
+  String? vid3;
+  String? vid4;
+  String? vid5;
+  String? vid6;
+  String? vid7;
+
+  RaspisanieM.fromJson(Map<String, dynamic> json) {
+    pair1 = json['pair1'];
+    pair2 = json['pair2'];
+    pair3 = json['pair3'];
+    pair4 = json['pair4'];
+    pair5 = json['pair5'];
+    pair6 = json['pair6'];
+    pair7 = json['pair7'];
+    aud1 = json['aud1'];
+    aud2 = json['aud2'];
+    aud3 = json['aud3'];
+    aud4 = json['aud4'];
+    aud5 = json['aud5'];
+    aud6 = json['aud6'];
+    aud7 = json['aud7'];
+    prep1 = json['prep1'];
+    prep2 = json['prep2'];
+    prep3 = json['prep3'];
+    prep4 = json['prep4'];
+    prep5 = json['prep5'];
+    prep6 = json['prep6'];
+    prep7 = json['prep7'];
+    vid1 = json['vid1'];
+    vid2 = json['vid2'];
+    vid3 = json['vid3'];
+    vid4 = json['vid4'];
+    vid5 = json['vid5'];
+    vid6 = json['vid6'];
+    vid7 = json['vid7'];
+  }
+}

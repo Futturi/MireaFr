@@ -1,0 +1,33 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+final dio = Dio();
+
+Future<void> saveToken(String token) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('jwt_token', token);
+}
+
+Future<void> saveGroup(String group) async{
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('group', group);
+}
+
+class AuthScreenRepository{
+  Future<void> Signin(String email, password) async{
+    final response = await dio.post("http://localhost:8080/auth/signin",data: {'email': email, 'password': password}, options: Options(headers: {
+      'Accept': 'application/json'
+    }));
+    if (response.statusCode == 200){
+      final data =  response.data as Map<String, dynamic>;
+      final token = data['token']; // получаем токен из ответа
+      saveToken(token);
+      final group = response.headers.value('group_id') ?? "";
+      saveGroup(group);
+    }else{
+      throw Exception("invalid account");
+    }
+  }
+}

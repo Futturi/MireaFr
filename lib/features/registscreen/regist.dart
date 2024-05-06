@@ -1,0 +1,1 @@
+export 'package:raspisanie/features/registscreen/view/view.dart';

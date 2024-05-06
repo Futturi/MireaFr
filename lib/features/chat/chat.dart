@@ -1,0 +1,1 @@
+export 'package:raspisanie/features/chat/view/view.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:raspisanie/repositories/registscreen/models/regist.dart';
 import 'package:raspisanie/repositories/registscreen/regist_repo.dart';
 
@@ -17,6 +18,7 @@ class _Regist extends State<Regist>{
   String? err;
   @override
   Widget build(BuildContext build){
+    final mquery = MediaQuery.of(context);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Регистрация",),
@@ -30,8 +32,8 @@ class _Regist extends State<Regist>{
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Image(image: AssetImage('assets/logo.png'), width: 350),
-              Padding(padding: const EdgeInsets.symmetric(horizontal: 200), child: Container(
+              SizedBox(height: mquery.size.height / 10,),
+              Padding(padding: EdgeInsets.symmetric(horizontal: mquery.size.width / 5), child: Container(
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: Card(
                   shape:  RoundedRectangleBorder(
@@ -40,7 +42,7 @@ class _Regist extends State<Regist>{
                   color: Colors.white70,
                   child: Column(
                     children: [
-                      const SizedBox(height: 40,),
+                      const Image(image: AssetImage('assets/logo.png'), width: 350),
                       Padding(padding: const EdgeInsets.symmetric(horizontal: 20), child:TextField(
                         controller: name,
                         style: Theme.of(context).textTheme.bodySmall,
@@ -110,7 +112,7 @@ class _Regist extends State<Regist>{
                       FloatingActionButton(onPressed: ()async{
                         try{
                           id = await RegistRepo().signUp(mail.text, password.text, name.text, group.text);
-                          Navigator.pop(context);
+                          context.go('/');
                         }catch(e){
                           err = 'Такой пользователь уже существует';
                         }
@@ -123,6 +125,7 @@ class _Regist extends State<Regist>{
                 ),
               ),
               ),
+              SizedBox(height: mquery.size.height / 10,),
             ],
           ),)
 

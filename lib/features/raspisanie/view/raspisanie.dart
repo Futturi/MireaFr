@@ -4,7 +4,9 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:raspisanie/repositories/raspisanie/raspisanie_repo.dart';
 import 'package:raspisanie/repositories/raspisanie/models/raspisanie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:raspisanie/features/authscreen/authscreen.dart';
+import 'package:raspisanie/features/chat/chat.dart';
+
+
 
 class Raspisanie extends StatefulWidget{
   @override
@@ -19,20 +21,23 @@ class _Raspisanie extends State<Raspisanie>{
   Future<RaspisanieM?> getPairs(int weeks) async{
     return await RaspisanieRepo().raspisanie(weeks - 1, _selectedDate.weekday % 7);
   }
+
   @override
   void initState(){
     super.initState();
     int weeks = (_selectedDate.difference(startDate).inDays / 7).floor();
-    getPairs(weeks).then((value) => pairs = value);
-    setState(() {
-      pairs = pairs;
+    getPairs(weeks).then((value) {
+      setState(() {
+        pairs = value;
+      });
     });
+
   }
   CalendarFormat b = CalendarFormat.twoWeeks;
   RaspisanieM? pairs2;
   @override
   Widget build(BuildContext context){
-    DateTime a = DateTime(1997);
+    print(pairs);
     return Scaffold(
         body:
         SingleChildScrollView(
@@ -40,6 +45,13 @@ class _Raspisanie extends State<Raspisanie>{
         Column(
           children: [
             TableCalendar(
+              headerStyle: HeaderStyle(
+                titleCentered: true,
+                formatButtonTextStyle: TextStyle(color: Colors.white)
+              ),
+              calendarStyle: CalendarStyle(
+                selectedDecoration: BoxDecoration(color: Colors.lightBlue, shape: BoxShape.circle)
+              ),
               firstDay: DateTime.utc(2024, 1, 1),
               lastDay: DateTime.utc(2024, 7, 29),
               focusedDay: _selectedDate,
@@ -52,7 +64,6 @@ class _Raspisanie extends State<Raspisanie>{
                 int weeks = (_selectedDate.difference(startDate).inDays / 7).floor();
                 _selectedDate = selectedDay;
                 try{
-                  final prefs = await SharedPreferences.getInstance();
                   pairs2 = await RaspisanieRepo().raspisanie( weeks - 1, _selectedDate.weekday % 7);
                   setState(() {
                     pairs = pairs2;
@@ -215,7 +226,7 @@ class _MainView extends State<MainView> {
   int _selectedIndex = 1;
 
   final List<Widget> _pages = [
-    AuthScreen(), // ну тут не authscreen соот.
+    Chat(), // ну тут не authscreen соот.
     Raspisanie()
   ];
 
@@ -248,7 +259,7 @@ class _MainView extends State<MainView> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.book_outlined, color: Colors.white70,),
-                label: 'Дневник',
+                label: 'Расписаие',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.account_box_sharp, color: Colors.white70,),

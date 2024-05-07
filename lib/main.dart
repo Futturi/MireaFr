@@ -3,13 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:raspisanie/features/authscreen/authscreen.dart';
 import 'package:raspisanie/features/raspisanie/raspisanie.dart';
 import 'package:raspisanie/features/registscreen/regist.dart';
+import 'package:intl/intl.dart';
+import 'package:go_router/go_router.dart';
 
-void main() => runApp(Run());
+
+void main() {
+  runApp(Run());
+}
 
 class Run extends StatelessWidget{
+
+  final GoRouter router = GoRouter(
+      routes: [GoRoute(
+          path: '/',
+          pageBuilder: (context, state) => MaterialPage(child: AuthScreen()),
+        routes: [GoRoute(
+            path: 'raspisanie',
+            pageBuilder: (context, state) => MaterialPage(child: MainView())
+        ),
+        GoRoute(path: 'signup', pageBuilder: (context, state) => MaterialPage(child: Regist()))]
+      )]
+  );
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       theme: ThemeData(
         scaffoldBackgroundColor: const Color.fromARGB(255, 31, 31, 31),
         appBarTheme: const AppBarTheme(
@@ -27,12 +44,7 @@ class Run extends StatelessWidget{
         )
       ),
       title: 'Raspisanie',
-      initialRoute: '/',
-      routes: {
-        '/': (context) => AuthScreen(),
-        '/raspisanie': (context) => MainView(),
-        '/signup': (context) => Regist()
-      },
+      routerConfig: router,
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:raspisanie/repositories/authscreen/authscreen_repo.dart';
 import 'package:raspisanie/repositories/authscreen/models/authscreen.dart';
 
@@ -21,6 +22,7 @@ class _AuthScreen extends State<AuthScreen>{
   }
   @override
   Widget build(BuildContext context){
+    final mquery = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Авторизация",),
@@ -32,14 +34,14 @@ class _AuthScreen extends State<AuthScreen>{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Image(image: AssetImage('assets/logo.png'), width: 350),
-        Padding(padding: const EdgeInsets.symmetric(horizontal: 200), child: Container(
+            SizedBox(height: mquery.size.height / 10),
+        Padding(padding: EdgeInsets.symmetric(horizontal: mquery.size.width / 5), child: Container(
           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
           child: Card(
             shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0),), color: Colors.white70,
             child: Column(
               children: [
-                const SizedBox(height: 40,),
+                const Image(image: AssetImage('assets/logo.png'), width: 350),
                 Padding(padding: const EdgeInsets.symmetric(horizontal: 20), child:Container(
                   child: TextField(
                     controller: logincontoller,
@@ -86,9 +88,9 @@ class _AuthScreen extends State<AuthScreen>{
                   onPressed: ()async{
                     try{
                       await AuthScreenRepository().Signin(logincontoller.text, passwordcontroller.text);
-                      Navigator.pushNamed(context, '/raspisanie');
+                      context.go('/raspisanie');
                     } catch(e){
-                      Navigator.pushNamed(context, "/signup");
+                      context.go('/signup');
                     }
                   },
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -100,6 +102,7 @@ class _AuthScreen extends State<AuthScreen>{
     )
         )
         ),
+            SizedBox(height: mquery.size.height / 5),
           ],
         ),
       ),

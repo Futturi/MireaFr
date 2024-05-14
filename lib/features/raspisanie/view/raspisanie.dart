@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:raspisanie/repositories/raspisanie/raspisanie_repo.dart';
 import 'package:raspisanie/repositories/raspisanie/models/raspisanie.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:raspisanie/features/chat/chat.dart';
+import 'package:raspisanie/features/profile/profile.dart';
 
 
 
@@ -226,13 +226,15 @@ class _MainView extends State<MainView> {
   int _selectedIndex = 1;
 
   final List<Widget> _pages = [
-    Chat(), // ну тут не authscreen соот.
-    Raspisanie()
+    Chat(),
+    Raspisanie(),
+    Profile()
   ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      print(_selectedIndex);
     });
   }
 
@@ -244,7 +246,7 @@ class _MainView extends State<MainView> {
           children: _pages,
         ),
         bottomNavigationBar:  ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(30.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(30.0)),
           child: BottomNavigationBar(
             showUnselectedLabels: false,
             selectedItemColor: Colors.blueAccent,
@@ -252,16 +254,16 @@ class _MainView extends State<MainView> {
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             currentIndex: _selectedIndex,
             onTap: _onItemTapped,
-            items: [
-              BottomNavigationBarItem(
+            items: const [
+               BottomNavigationBarItem(
                 icon: Icon(Icons.chat_bubble, color: Colors.white70,),
                 label: 'Чат',
               ),
-              BottomNavigationBarItem(
+               BottomNavigationBarItem(
                 icon: Icon(Icons.book_outlined, color: Colors.white70,),
-                label: 'Расписаие',
+                label: 'Расписание',
               ),
-              BottomNavigationBarItem(
+               BottomNavigationBarItem(
                 icon: Icon(Icons.account_box_sharp, color: Colors.white70,),
                 label: 'Профиль',
               ),

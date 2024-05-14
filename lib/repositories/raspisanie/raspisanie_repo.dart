@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+
 import 'package:dio/dio.dart';
 import 'package:raspisanie/repositories/raspisanie/models/raspisanie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final dio = Dio();
+
 
 class RaspisanieRepo{
   Future<RaspisanieM> raspisanie(int week, int day) async{

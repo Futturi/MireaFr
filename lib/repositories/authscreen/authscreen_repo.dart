@@ -1,5 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,6 +14,11 @@ Future<void> saveGroup(String group) async{
   await prefs.setString('group', group);
 }
 
+Future<void> saveId(String id) async{
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setString('id', id);
+}
+
 class AuthScreenRepository{
   Future<void> Signin(String email, password) async{
     final response = await dio.post("http://localhost:8080/auth/signin",data: {'email': email, 'password': password}, options: Options(headers: {
@@ -24,8 +28,6 @@ class AuthScreenRepository{
       final data =  response.data as Map<String, dynamic>;
       final token = data['token']; // получаем токен из ответа
       saveToken(token);
-      final group = response.headers.value('group_id') ?? "";
-      saveGroup(group);
     }else{
       throw Exception("invalid account");
     }

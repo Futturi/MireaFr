@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:raspisanie/features/authscreen/authscreen.dart';
-import 'package:raspisanie/features/raspisanie/raspisanie.dart';
-import 'package:raspisanie/features/registscreen/regist.dart';
-import 'package:intl/intl.dart';
+import 'package:raspisanie/src/features/auth/presentation/page/authscreen.dart';
+import 'package:raspisanie/src/features/chat/presentation/page/chat.dart';
+import 'package:raspisanie/src/features/raspisanie/presentation/page/raspisanie.dart';
+import 'package:raspisanie/src/features/signup/presentation/page/registscreen.dart';
 import 'package:go_router/go_router.dart';
 
 
@@ -18,8 +18,12 @@ class Run extends StatelessWidget{
           path: '/',
           pageBuilder: (context, state) => MaterialPage(child: AuthScreen()),
         routes: [GoRoute(
-            path: 'raspisanie',
-            pageBuilder: (context, state) => MaterialPage(child: MainView())
+            path: 'main',
+            pageBuilder: (context, state) => MaterialPage(child: MainView()),
+          routes: [GoRoute(
+              path: 'chat',
+            pageBuilder: (context, state) => MaterialPage(child: Chat())
+          )]
         ),
         GoRoute(path: 'signup', pageBuilder: (context, state) => MaterialPage(child: Regist()))]
       )]

@@ -39,23 +39,23 @@ class _AuthScreen extends State<AuthScreen>{
         Padding(padding: EdgeInsets.symmetric(horizontal: mquery.size.width / 5), child: Container(
           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
           child: Card(
-            shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0),), color: Colors.white70,
+            shape:  RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0),), color: Colors.black12,
             child: Column(
               children: [
                 CachedNetworkImage(imageUrl: 'https://imgtr.ee/images/2024/05/16/439e0cc848d620903cad8c6e4367c0ef.png'),
                 Padding(padding: const EdgeInsets.symmetric(horizontal: 20), child:Container(
                   child: TextField(
                     controller: logincontoller,
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodyMedium,
                     decoration: InputDecoration(
                       hintText: 'Логин',
                       hintStyle: Theme.of(context).textTheme.bodySmall,
                       contentPadding: const EdgeInsets.symmetric(horizontal: 30.0),
                       enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(width: 1.0, color: Colors.black38),
+                        borderSide: BorderSide(width: 1.0, color: Colors.white24),
                       ),
                       focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(width: 1.5, color: Colors.black),
+                        borderSide: BorderSide(width: 1.5, color: Colors.white),
                       ),
                     ),
                   ),
@@ -64,7 +64,7 @@ class _AuthScreen extends State<AuthScreen>{
                 Padding(padding: const EdgeInsets.symmetric(horizontal: 20), child: Container(
                   child: TextField(
                     controller: passwordcontroller,
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodyMedium,
                     obscureText: ob,
                     decoration: InputDecoration(
                       hintText: 'Пароль',
@@ -75,10 +75,10 @@ class _AuthScreen extends State<AuthScreen>{
                       hintStyle: Theme.of(context).textTheme.bodySmall,
                       contentPadding: const EdgeInsets.symmetric(horizontal: 30.0),
                       enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(width: 1.0, color: Colors.black38),
+                        borderSide: BorderSide(width: 1.0, color: Colors.white24),
                       ),
                       focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(width: 1.5, color: Colors.black),
+                        borderSide: BorderSide(width: 1.5, color: Colors.white),
                       ),
                     ),
                   ),

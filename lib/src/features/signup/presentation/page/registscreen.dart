@@ -39,70 +39,70 @@ class _Regist extends State<Regist>{
                   shape:  RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  color: Colors.white70,
+                  color: Colors.black12,
                   child: Column(
                     children: [
                       const Image(image: AssetImage('assets/logo.png'), width: 350),
                       Padding(padding: const EdgeInsets.symmetric(horizontal: 20), child:TextField(
                         controller: name,
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: Theme.of(context).textTheme.bodyMedium,
                         decoration: InputDecoration(
                           hintText: 'ФИО',
                           hintStyle: Theme.of(context).textTheme.bodySmall,
                           contentPadding: const EdgeInsets.symmetric(horizontal: 30.0),
                           enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(width: 1.0, color: Colors.black38),
+                            borderSide: BorderSide(width: 1.0, color: Colors.white24),
                           ),
                           focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(width: 1.5, color: Colors.black),
+                            borderSide: BorderSide(width: 1.5, color: Colors.white),
                           ),
                         ),
                       ),),
                       const SizedBox(height: 30),
                       Padding(padding: const EdgeInsets.symmetric(horizontal: 20), child: TextField(
                         controller: mail,
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: Theme.of(context).textTheme.bodyMedium,
                         decoration: InputDecoration(
                           hintText: 'Почта',
                           hintStyle: Theme.of(context).textTheme.bodySmall,
                           contentPadding: const EdgeInsets.symmetric(horizontal: 30.0),
                           enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(width: 1.0, color: Colors.black38),
+                            borderSide: BorderSide(width: 1.0, color: Colors.white24),
                           ),
                           focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(width: 1.5, color: Colors.black),
+                            borderSide: BorderSide(width: 1.5, color: Colors.white),
                           ),
                         ),
                       ),),
                       const SizedBox(height: 30),
                       Padding(padding: const EdgeInsets.symmetric(horizontal: 20), child: TextField(
                         controller: password,
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: Theme.of(context).textTheme.bodyMedium,
                         decoration: InputDecoration(
                           hintText: 'Пароль',
                           hintStyle: Theme.of(context).textTheme.bodySmall,
                           contentPadding: const EdgeInsets.symmetric(horizontal: 30.0),
                           enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(width: 1.0, color: Colors.black38),
+                            borderSide: BorderSide(width: 1.0, color: Colors.white24),
                           ),
                           focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(width: 1.5, color: Colors.black),
+                            borderSide: BorderSide(width: 1.5, color: Colors.white),
                           ),
                         ),
                       ),),
                       const SizedBox(height: 30),
                       Padding(padding: const EdgeInsets.symmetric(horizontal: 20), child:TextField(
                         controller: group,
-                        style: Theme.of(context).textTheme.bodySmall,
+                        style: Theme.of(context).textTheme.bodyMedium,
                         decoration: InputDecoration(
                           hintText: 'Группа',
                           hintStyle: Theme.of(context).textTheme.bodySmall,
                           contentPadding: const EdgeInsets.symmetric(horizontal: 30.0),
                           enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(width: 1.0, color: Colors.black38),
+                            borderSide: BorderSide(width: 1.0, color: Colors.white24),
                           ),
                           focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(width: 1.5, color: Colors.black),
+                            borderSide: BorderSide(width: 1.5, color: Colors.white),
                           ),
                         ),
                       ) ,),

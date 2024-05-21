@@ -42,8 +42,8 @@ class Run extends StatelessWidget{
           )
       ),
         textTheme: const TextTheme(
-          bodySmall: TextStyle(color: Colors.black38, fontWeight: FontWeight.w400),
-            bodyLarge: TextStyle(color: Colors.black, fontWeight: FontWeight.w600, fontSize: 20),
+          bodySmall: TextStyle(color: Colors.white24, fontWeight: FontWeight.w400),
+            bodyLarge: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20),
           bodyMedium: TextStyle(color: Colors.white70, fontWeight: FontWeight.w300)
         )
       ),

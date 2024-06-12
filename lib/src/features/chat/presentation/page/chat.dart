@@ -8,6 +8,7 @@ import 'package:raspisanie/src/features/chat/data/api/chat_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:intl/intl.dart';
+import 'package:get_it/get_it.dart';
 
 class Chat extends StatefulWidget{
   @override
@@ -25,6 +26,7 @@ class _Chat extends State<Chat>{
 String? id;
   @override
   void initState() {
+    SetupLoc();
     super.initState();
     GetPair().then((value) {
       setState(() {
@@ -116,6 +118,42 @@ String? id;
     );
   }
 }
+class ChatOneInheritedWidget extends InheritedWidget {
+  final String name;
+
+  const ChatOneInheritedWidget({
+    Key? key,
+    required this.name,
+    required Widget child,
+  }) : super(key: key, child: child);
+
+  static ChatOneInheritedWidget? of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<ChatOneInheritedWidget>();
+  }
+
+  @override
+  bool updateShouldNotify(ChatOneInheritedWidget oldWidget) {
+    return name != oldWidget.name;
+  }
+}
+final GetIt getIt = GetIt.instance;
+
+class ChatModel{
+  void getid() async{
+    final prefs = await SharedPreferences.getInstance();
+    id = prefs.getString('id');
+  }
+  void gettoken() async{
+    final prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('jwt_token');
+  }
+  String? token;
+  String? id;
+}
+
+void SetupLoc() {
+  getIt.registerSingleton<ChatModel>(ChatModel());
+}
 
 class ChatOne extends StatefulWidget{
   String name;
@@ -143,6 +181,9 @@ class _ChatOne extends State<ChatOne>{
   }
   @override
   Widget build(BuildContext build){
+    final appmodel = getIt<ChatModel>();
+    appmodel.token = token;
+    appmodel.id = id;
     final chan = IOWebSocketChannel.connect('ws://localhost:8080/api/joinroom/$name', headers: {
     "Authorization": "Bearer $token",
     });
@@ -152,7 +193,7 @@ class _ChatOne extends State<ChatOne>{
     void disconnect() {
       chan.sink.close();
     }
-    return Scaffold(
+    return ChatOneInheritedWidget(name: name, child: Scaffold(
       appBar: AppBar(
         leading: FloatingActionButton(
           backgroundColor: Colors.transparent,
@@ -162,7 +203,7 @@ class _ChatOne extends State<ChatOne>{
           },
           child: Icon(Icons.arrow_back, color: Colors.white,),
         ),
-        title: Text(name, style: TextStyle(color: Colors.white70),),
+        title: Text(ChatOneInheritedWidget.of(context)?.name ?? "first", style: TextStyle(color: Colors.white70),),
       ),
       body: StreamBuilder(
         stream: chan.stream.map((event) => event),
@@ -188,44 +229,44 @@ class _ChatOne extends State<ChatOne>{
             children: [
               Expanded(
                   child: ListView.builder(
-          itemCount: list.length,
-              itemBuilder: (build, ind){
-                if (list[ind].clientid == id){
-                  return Container(
-                    padding: EdgeInsets.fromLTRB(300, 15, 0, 0),
-                    child: Card(
-                      color: Colors.blueAccent,
-                      child: ListTile(
-                        subtitle: Text(list[ind].username ?? "", style: TextStyle(color: Colors.black),),
-                        title: Text(list[ind].content ?? ""),
-                        trailing: Text(DateFormat("HH:mm").format(list[ind].dat ?? DateTime(1970)), style: TextStyle(color: Colors.black),),
-                        leading: Text(DateFormat("dd.MM.yy").format(list[ind].dat ?? DateTime(1970)) + 'г', style: TextStyle(color: Colors.black),),
-                      ) ,
-                      shape:  RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                  );
+                      itemCount: list.length,
+                      itemBuilder: (build, ind){
+                        if (list[ind].clientid == id){
+                          return Container(
+                            padding: EdgeInsets.fromLTRB(300, 15, 0, 0),
+                            child: Card(
+                              color: Colors.blueAccent,
+                              child: ListTile(
+                                subtitle: Text(list[ind].username ?? "", style: TextStyle(color: Colors.black),),
+                                title: Text(list[ind].content ?? ""),
+                                trailing: Text(DateFormat("HH:mm").format(list[ind].dat ?? DateTime(1970)), style: TextStyle(color: Colors.black),),
+                                leading: Text(DateFormat("dd.MM.yy").format(list[ind].dat ?? DateTime(1970)) + 'г', style: TextStyle(color: Colors.black),),
+                              ) ,
+                              shape:  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
+                          );
 
-                }else{
-                  return Container(
-                    padding: EdgeInsets.fromLTRB(0, 15, 300, 0),
-                    child: Card(
-                      color: Colors.deepPurple,
-                      child: ListTile(
-                        subtitle: Text(list[ind].username ?? "", style: TextStyle(color: Colors.black),),
-                        title: Text(list[ind].content ?? ""),
-                        trailing: Text(DateFormat("HH:mm").format(list[ind].dat ?? DateTime(1970)), style: TextStyle(color: Colors.black),),
-                        leading: Text(DateFormat("dd.MM.yy").format(list[ind].dat ?? DateTime(1970)) + 'г', style: TextStyle(color: Colors.black),),
-                      ) ,
-                      shape:  RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                  );
-                }
-              }
-          )
+                        }else{
+                          return Container(
+                            padding: EdgeInsets.fromLTRB(0, 15, 300, 0),
+                            child: Card(
+                              color: Colors.deepPurple,
+                              child: ListTile(
+                                subtitle: Text(list[ind].username ?? "", style: TextStyle(color: Colors.black),),
+                                title: Text(list[ind].content ?? ""),
+                                trailing: Text(DateFormat("HH:mm").format(list[ind].dat ?? DateTime(1970)), style: TextStyle(color: Colors.black),),
+                                leading: Text(DateFormat("dd.MM.yy").format(list[ind].dat ?? DateTime(1970)) + 'г', style: TextStyle(color: Colors.black),),
+                              ) ,
+                              shape:  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
+                          );
+                        }
+                      }
+                  )
               ),
               Container(
                 color: Colors.black26,
@@ -234,12 +275,12 @@ class _ChatOne extends State<ChatOne>{
                     Expanded(
                         child: TextField(
                           decoration: const InputDecoration(
-                            hintText: "Введите сообщение",
-                            hintStyle: TextStyle(color: Colors.white70)
+                              hintText: "Введите сообщение",
+                              hintStyle: TextStyle(color: Colors.white70)
                           ),
                           controller: cont,
                           style: TextStyle(
-                            color: Colors.white
+                              color: Colors.white
                           ),
                         )
                     ),
@@ -254,6 +295,7 @@ class _ChatOne extends State<ChatOne>{
           );
         },
       ),
+    )
     );
   }
 }

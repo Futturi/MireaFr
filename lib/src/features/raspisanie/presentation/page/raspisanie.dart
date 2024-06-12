@@ -16,11 +16,12 @@ class Raspisanie extends StatefulWidget{
 
 class _Raspisanie extends State<Raspisanie>{
   @override
+  final Store = RaspisanieRe();
   DateTime _selectedDate = DateTime.now();
   DateTime startDate = DateTime(2024, 2, 9);
   RaspisanieM? pairs;
   Future<RaspisanieM?> getPairs(int weeks) async{
-    return await RaspisanieRepo().raspisanie(weeks - 1, _selectedDate.weekday % 7);
+    return await Store.raspisanie(weeks - 1, _selectedDate.weekday % 7);
   }
 
   @override
@@ -71,21 +72,21 @@ class _Raspisanie extends State<Raspisanie>{
                 int weeks = (_selectedDate.difference(startDate).inDays / 7).floor();
                 _selectedDate = selectedDay;
                 try{
-                  pairs2 = await RaspisanieRepo().raspisanie( weeks - 1, _selectedDate.weekday % 7);
+                  pairs2 = await Store.raspisanie( weeks - 1, _selectedDate.weekday % 7);
                   setState(() {
                     pairs = pairs2;
                     _selectedDate = selectedDay;
                     _selectedDate = focusedDay;
                   });
                 }catch(e){
-                  pairs2 = await RaspisanieRepo().raspisanie(weeks - 1, _selectedDate.weekday % 7);
+                  pairs2 = await Store.raspisanie(weeks - 1, _selectedDate.weekday % 7);
                   setState(() {
                     pairs = pairs2;
                     _selectedDate = selectedDay;
                     _selectedDate = focusedDay;
                   });
                 }
-                pairs2 = await RaspisanieRepo().raspisanie(weeks - 1, _selectedDate.weekday % 7);
+                pairs2 = await Store.raspisanie(weeks - 1, _selectedDate.weekday % 7);
                 setState(() {
                   pairs = pairs2;
                   _selectedDate = selectedDay;
